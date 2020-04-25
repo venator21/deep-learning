@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from model.LogisticRegression import LogisticRegression
+from model.logistic_regression import LogisticRegression
 
 
 class TestLogisticRegression(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestLogisticRegression(unittest.TestCase):
     def test_sigmoid_func(self):
         sigmoid_arr = self.model.sigmoid(np.array([0, 2]))
         expected_arr = np.array([0.5, 0.8807970779778823])
-        self.assertSequenceEqual(sigmoid_arr.tolist(), expected_arr.tolist())
+        self.assertSequenceEqual(expected_arr.tolist(), sigmoid_arr.tolist())
 
     def test_forward_propagation(self):
         self.model.forward_propagation(self.x, self.y)
@@ -21,9 +21,9 @@ class TestLogisticRegression(unittest.TestCase):
         expected_dw = np.array([[0.998456014637956], [2.3950723884862066]])
         expected_db = 0.001455578136784208
 
-        self.assertSequenceEqual(self.model.grads["dw"].tolist(), expected_dw.tolist())
-        self.assertEqual(self.model.grads["db"], expected_db)
-        self.assertEqual(self.model.cost, 5.801545319394553)
+        self.assertSequenceEqual(expected_dw.tolist(), self.model.grads["dw"].tolist())
+        self.assertEqual(expected_db, self.model.grads["db"], )
+        self.assertEqual(5.801545319394553, self.model.cost)
 
     def test_gradient_decent(self):
         self.model.gradient_decent(self.x, self.y, num_iterations=100, learning_rate=0.009, print_cost=False)
@@ -33,10 +33,10 @@ class TestLogisticRegression(unittest.TestCase):
         expected_dw = np.array([[0.6775204222153582], [1.416254952638088]])
         expected_db = 0.21919450454067657
 
-        self.assertSequenceEqual(self.model.params["w"].tolist(), expected_w.tolist())
-        self.assertEqual(self.model.params["b"], expected_b)
-        self.assertSequenceEqual(self.model.grads["dw"].tolist(), expected_dw.tolist())
-        self.assertEqual(self.model.grads["db"], expected_db)
+        self.assertSequenceEqual(expected_w.tolist(), self.model.params["w"].tolist())
+        self.assertEqual(expected_b, self.model.params["b"])
+        self.assertSequenceEqual(expected_dw.tolist(), self.model.grads["dw"].tolist())
+        self.assertEqual(expected_db, self.model.grads["db"])
 
     def test_predict(self):
         self.model.params["w"] = np.array([[0.1124579], [0.23106775]])
@@ -45,7 +45,7 @@ class TestLogisticRegression(unittest.TestCase):
         expected_predictions = np.array([[1., 1., 0.]])
         predictions = self.model.predict(X)
 
-        self.assertSequenceEqual(predictions.tolist(), expected_predictions.tolist())
+        self.assertSequenceEqual(expected_predictions.tolist(), predictions.tolist())
 
 
 if __name__ == '__main__':

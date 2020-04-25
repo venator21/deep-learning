@@ -1,4 +1,5 @@
 import numpy as np
+import model.dnn_utils as utl
 
 
 class LogisticRegression:
@@ -127,6 +128,7 @@ class LogisticRegression:
         :param num_iterations: number of iterations to run gradient decent
         :param learning_rate: learning rate used in gradient decent
         :param print_cost: if true, prints cost every 100 iterations
+        :return: prediction represented by a numpy array
         """
 
         self.params["w"], self.params["b"] = self.zeros_init(x_train.shape[0])

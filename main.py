@@ -1,10 +1,9 @@
-from model.LogisticRegression import LogisticRegression
+from model.logistic_regression import LogisticRegression
+from model.deep_neural_network import DeepNeuralNetwork
 from keras.datasets import mnist
 
 
 def main():
-    # Logistic Regression example
-
     # Load mnist data set
     (x_train_orig, y_train), (x_test_orig, y_test) = mnist.load_data()
 
@@ -27,9 +26,18 @@ def main():
         else:
             y_test[i] = 0
 
-    # train model
+    y_train.resize(1, y_train.shape[0])
+
+    # Logistic Regression example
     model = LogisticRegression()
     model.fit(x_train, y_train, x_test, y_test, num_iterations=500)
+
+    # Logistic Regression example
+    model = DeepNeuralNetwork([784, 20, 5, 1])
+    model.fit(x_train, y_train, num_iterations=500)
+    model.predict(x_test, y_test)
+
+
 
 
 if __name__ == '__main__':
